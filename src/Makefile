@@ -10,6 +10,12 @@ $(LIB) : $(OBJ) s21_matrix.h
 	ar rcs $(LIB) $(OBJ)
 	ranlib s21_matrix.a
 
-.SILENT: $(OBJ) $(OBJ_TEST) $(OBJ_REPORT) $(LIB) test clean 
+clean : 
+	rm -rf *.a 
+	rm -rf library/*.o
+	rm -rf *.out
+	rm -rf *.html
 
 .PHONY: all test clean
+
+# .SILENT: $(OBJ) $(OBJ_TEST) $(OBJ_REPORT) $(LIB) test clean
