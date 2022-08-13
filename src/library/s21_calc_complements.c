@@ -11,4 +11,5 @@ int s21_calc_complements(matrix_t *a, matrix_t *c) {
     if (res == SUCCESS) {
         s21_calculator(a, c);
     }
+    return res;
 }

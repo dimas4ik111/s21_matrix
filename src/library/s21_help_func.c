@@ -2,7 +2,7 @@
 
 int s21_matrix_checker(matrix_t* a) {
     int res = 0;
-    if (a->rows <= 0 || a->columns <= 0 || !a)
+    if (a->rows <= 0 || a->columns <= 0)
         res = 1;
     return res;
 }
@@ -34,7 +34,7 @@ int s21_calculator(matrix_t* a, matrix_t* c) {
 double s21_determ(double **m, int size) {
     if (size == 1)
         return m[0][0];
-    
+
     double res = 0;
 
     matrix_t tmp;

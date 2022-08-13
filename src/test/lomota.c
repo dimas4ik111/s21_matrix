@@ -48,7 +48,7 @@ START_TEST(a_3) {
     ck_assert_double_eq(a.matrix[0][1], b.matrix[0][1]);
     ck_assert_double_eq(a.matrix[1][0], b.matrix[1][0]);
     ck_assert_double_eq(a.matrix[0][1], b.matrix[0][1]);
-    ck_assert_int_eq(s21_eq_matrix(&a,&b), 1);
+    ck_assert_int_eq(s21_eq_matrix(&a, &b), 1);
     s21_remove_matrix(&a);
     s21_remove_matrix(&b);
 }
@@ -362,6 +362,55 @@ START_TEST(a_14) {
 }
 END_TEST
 
+START_TEST(a_15) {
+    matrix_t matrix;
+    s21_create_matrix(3, 3, &matrix);
+    int count = 1;
+    for (int i = 0; i < matrix.rows; i++) {
+        for (int j = 0; j < matrix.columns; j++) {
+            matrix.matrix[i][j] = count++;
+        }
+    }
+    matrix.matrix[2][2] = 10;
+    double res;
+    int ret = s21_determinant(&matrix, &res);
+    ck_assert_uint_eq(res, -3);
+    ck_assert_int_eq(ret, 0);
+    s21_remove_matrix(&matrix);
+}
+END_TEST
+
+START_TEST(a_16) {
+    matrix_t matrix;
+    s21_create_matrix(1, 1, &matrix);
+    matrix.matrix[0][0] = 1;
+    double res;
+    int ret = s21_determinant(&matrix, &res);
+    ck_assert_uint_eq(res, 1);
+    ck_assert_int_eq(ret, 0);
+    s21_remove_matrix(&matrix);
+}
+END_TEST
+
+START_TEST(a_17) {
+    matrix_t a;
+    matrix_t b;
+    double f = 0;
+    ck_assert_int_eq(s21_eq_matrix(&a, &b), 0);
+    ck_assert_int_eq(s21_determinant(&a, &f), 2);
+    s21_create_matrix(1, 1, &a);
+    s21_create_matrix(2, 2, &b);
+    ck_assert_int_eq(s21_eq_matrix(&a, &b), 0);
+    s21_remove_matrix(&a);
+    s21_create_matrix(2, 2, &a);
+    a.matrix[0][0] = 142.51234;
+    ck_assert_int_eq(s21_eq_matrix(&a, &b), 0);
+    s21_remove_matrix(&a);
+    s21_remove_matrix(&b);
+}
+END_TEST
+
+
 Suite* s21_matrix_test(void) {
     Suite *s = suite_create("!!!TEST!!!");
     TCase *pum;
@@ -381,6 +430,9 @@ Suite* s21_matrix_test(void) {
     tcase_add_test(pum, a_12);
     tcase_add_test(pum, a_13);
     tcase_add_test(pum, a_14);
+    tcase_add_test(pum, a_15);
+    tcase_add_test(pum, a_16);
+    tcase_add_test(pum, a_17);
     suite_add_tcase(s, pum);
 
     return s;

@@ -18,4 +18,5 @@ int s21_determinant(matrix_t *a, double *c) {
             *c = s21_determ(a->matrix, a->rows);
         }
     }
+    return res;
 }
