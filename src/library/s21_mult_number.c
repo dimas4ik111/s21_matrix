@@ -13,4 +13,5 @@ int s21_mult_number(matrix_t *a, double number, matrix_t *c) {
             }
         }
     }
+    return res;
 }
